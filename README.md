@@ -1,8 +1,8 @@
-Disclaimer: These reports are not supported by Fortinet and are maintained in my spare time. I do my best to keep them up-to-date but changes may be slow.
+_**Disclaimer: These reports are not supported by Fortinet and are maintained in my spare time. I do my best to keep them up-to-date but changes may be slow.**_
 
 ---
 
-# FortiAnalyzer-Safeguarding-Reports
+# FortiAnalyzer Safeguarding Reports
 ## Overview
 The changes made to the regulations for Keeping Children Safe In Education (KCSIE) in June 2023 were officially enforced in September 2023, requiring educational establishments to put more detailed filtering and monitoring solutions in place. This has led to many establishments using FortiAnalyzer as a reporting tool spending time/money customising the default safeguarding reports, creating custom reports or looking towards safeguarding specific products that have to run in tandem with FortiAnalyzer.
 
@@ -10,10 +10,24 @@ To combat this, I have created three reports for the FortiAnalyzer that I believ
 
 A PDF sample of each report can be found in the Sample Reports folder.
 
+## Table of Contents
+- [Report Descriptions](#report-descriptions)
+  - [Overview Report](#overview-report)
+  - [User Drilldown Report](#user-drilldown-report)
+  - [User Full Browsing and Search History Report](#user-full-browsing-and-search-history-report)
+- [Usage](#usage)
+  - [Importing the Reports](#importing-the-reports)
+  - [Customising the Cover Pages](#customising-the-cover-page)
+  - [Setting the Time Period](#setting-the-time-period)
+  - [Running Reports on a Schedule](#running-reports-on-a-schedule)
+    - [Automatically Email Scheduled Reports to DSL Teams](#automatically-email-scheduled-reports-to-dsl-teams)
+  - [Overview Report - Filtering Results to a Specific User Group](#overview-report---filtering-results-to-a-specific-user-group)
+  - [User Reports - Setting the User or IP Address](#user-reports---setting-the-user-or-ip-address)
+
 ## Report Descriptions
 Please note that these reports currently only work with FortiGate logs.
 
-### Overview/High-Level Report
+### Overview Report
 The Overview report is designed to provide a high-level overview of users' web activity.
 
 It starts by showing the ratios of web filter violations based on the C's of online safety, as set out by the UK Safer Internet Centre (UKSIC), which I have dubbed, "KCSIE Categories." These violations are not necessarily blocked websites. They are any activity that is logged against a web filter category (i.e. any category whose action is not set to, "Allow") that is included in one of the KCSIE categories (details of which web filter categories are assigned to which KCSIE categories can be found in the Dataset Source directory).
@@ -65,6 +79,67 @@ The primary difference between this page and that of the overview report is that
 
 The KCSIE category drilldowns list out all the web filter categories within them and provide summary and details tables for each (as noted in the comment on format earlier).
 
-Finally, at the bottom of the report, there is the Full Search Term History. 
+Finally, at the bottom of the report, there is the Full Search Term History. This, very simply, provides a list of all the keywords logged by the FortiGate within the time period the report is run over and lists them in chronological order (i.e. by when they were searched).
 
-This, very simply, provides a list of all the keywords logged by the FortiGate within the time period the report is run over and lists them in chronological order (i.e. by when they were searched).
+### User Full Browsing and Search History Report
+During the creation of the User Drilldown report, I noticed that it was very hard to correlate events happening between different web filter categories and/or keyword search times. Since context is one of the most important aspects when determining whether a potential incident needs actioning I decided to create a supplement report: the User Full Browsing & Search History report.
+
+This report is incredibly simple. It lists _**all**_ the user's web activity during the time period the report is run over in chronological order. All keyword searches are included and any activity that violates one of the KCSIE categories is denoted by an entry in the KCSIE Category column.
+
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/e1ac42fb-7bf0-444f-8bf2-c41cab35886b)
+
+## Usage
+### Importing the Reports
+To get started with using these reports, you will need to have a FortiAnalyzer running either 7.4.0 or later, excluding 7.4.1 (there is a bug within 7.4.1 that prevents custom datasets from being exported/edited). 7.4.0+ has a neutrino style GUI so be sure to re-familiarise yourself with the system if you're upgrading from 7.2.x or below.
+
+Importing the reports is as simple as cloning this repo, or downloading the .dat files within the Importable Reports directory, navigating to `Reports > Report Definitions > More > Import` and selecting the .dat files to upload.
+
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/68d2ca78-b40e-4c94-b5ef-4c30650dddb4)
+
+To keep things clean, I recommend creating a reports folder for all default reports and moving all the default **_black_** folders/reports into it: green folders cannot be moved (not present in 7.4.0). Once done, create another folder for KCSIE reports and move these reports into it (see above screenshot to how this tidies things up).
+
+### Customising the Cover Page
+The cover page configuration for each report can be found within their respective advanced settings. These can be accessed by editing the report, navigating to `Settings` at the top and expanding the Advanced Settings tab at the bottom of the page. The cover page settings can then be found by clicking the `Edit Cover Page` button.
+
+![Untitled](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/c2496d03-90ef-45d9-9b13-0ebad32fbdd0)
+
+This will provide a menu where the background image, title, title colour, footer text, etc. can be customised.
+
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/4a5e5713-04c7-4c71-a491-627cad828763)
+
+In the case of the Overview report the preview may look a tad squashed but this is normal for landscape reports, as the preview can only render portrait cover pages.
+
+### Setting the Time Period
+When running a safeguarding report, it's important to select the correct time period for the report to run over. FortiAnalyzer provides a variety of pre-defined relative timeframes that can be used but it's important to understand that the options starting with, "Previous," do not include the current period.
+
+For example, "Previous 4 Hours," will not include the current hour, "Previous 7 Days," will not include today and, "Previous Week," will not include the current week (Mon-Sun).
+
+### Running Reports on a Schedule
+To run a report on a schedule simply edit the report, navigate to `Settings` at the top, check the box next to `Enable Schedule` and fill out the relevant settings.
+
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/cad18b09-f8f7-4713-95ba-407d3e4ef92a)
+
+If you need a report to run on multiple schedules (e.g. the Overview report to run both once per month and once per week to display different levels of trends) the report will have to be cloned and each report's time period and schedule configured separtely.
+
+#### Automatically Email Scheduled Reports to DSL Teams
+To have scheduled reports automatically emailed to the DSL teams the email server settings on FortiAnalyzer must be configured. This is done under `System Settings > Advanced > Mail Server`.
+
+Once the email server has been configured, output profiles will need to be created under `Reports > Advanced Settings > Output Profile`. These output profiles dictate the format of the emailed report alongside the subject, body and recipients of the email.
+
+There is also the option to upload generated reports so an FTP or SCP server, if desired.
+
+### Overview Report - Filtering Results to a Specific User Group
+If your FortiGate is using role-based access control (RBAC) to provide different groups of students with different web filter profiles then the group that the user belongs to in the firewall policy they pass through will be logged. This makes it possible for a `group` filter to be set within the Overview report.
+
+To do this, simply edit the Overview report, navigate to it's `Settings` at the top, open the `Filters` dropdown and add a filter based on the `group` log field.
+
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/cd91b285-ae93-4134-814f-e053d66a4ed7)
+
+If more than one group needs to be matched, simply change the `Log messages that match` to `Any of the Following Contitions` and add more `group` filters.
+
+### User Reports - Setting the User or IP Address
+To set the username or IP address that you want a user report to run against, edit the report, navigate to `Settings` at the top and fill in the `User or IP` box.
+
+![Untitled](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/d3ed148d-8bdb-4848-9f99-ec76ab992d26)
+
+**_The username is case sensitive and must be entered exactly as it appears in the Overview report or in the logs._**
