@@ -116,11 +116,14 @@ Note that this also requires the firewall policy to be running in proxy-based in
 
 ###### Policy Settings
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/dd8904e8-4ae7-450e-94ae-c7ec878b30b6)
+
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/c84aab29-d0fb-4601-ae82-b6c54074cb2e)
+
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/7a99ab49-dd51-4509-8383-56ef6bb7beae)
 
 ###### Web Filter Profile Settings
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/6a46de0f-d0ef-4e0b-8919-cea415f1bd42)
+
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/5dab41e3-c078-4820-b9f5-6c610f382225)
 
 ##### Search Phrase Logging - Adding Additional Search Engines
@@ -129,9 +132,11 @@ As noted above, FortiGate's web filter can only log search phrases entered into 
 To see what search engines are currently logging search phrases, open a CLI interface and enter the command: `show webfilter search-engine`. All the search engines displayed with the `query` field set are capable of logging search phrases from their corresponding web apps.
 
 Adding a search engine is then a simple case of entering `config webfilter search-engine`, `edit`ing the search engine you want to add and filling out the regex for the necessary fields. As an example, I added DuckDuckGo as a search engine.
+
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/44c4884c-8fab-4740-8ea6-e5a4afedce2d)
 
 It can be a tad tricky to get certain characters (read, "question marks") into these configs. The best way I found to do this without having to reboot the box was to create a one-time automation stitch with a CLI script as the action.
+
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/8ce4a69b-fc23-4519-80c8-d3a09c04af0c)
 
 ### Importing the Reports
