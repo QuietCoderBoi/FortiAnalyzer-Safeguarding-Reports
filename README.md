@@ -16,6 +16,10 @@ A PDF sample of each report can be found in the Sample Reports folder.
   - [User Drilldown Report](#user-drilldown-report)
   - [User Full Browsing and Search History Report](#user-full-browsing-and-search-history-report)
 - [Usage](#usage)
+  - [FortiGate Prerequisites](#fortigate-prerequisites)
+    - [Enabling Usernames](#enabling-usernames)
+    - [Enabling Search Phrases](#enabling-search-phrases)
+      - [Search Phrase Logging - Adding Additional Search Engines](#search-phrase-logging---adding-additional-search-engines)
   - [Importing the Reports](#importing-the-reports)
   - [Customising the Cover Pages](#customising-the-cover-page)
   - [Setting the Time Period](#setting-the-time-period)
@@ -25,7 +29,7 @@ A PDF sample of each report can be found in the Sample Reports folder.
   - [User Reports - Setting the User or IP Address](#user-reports---setting-the-user-or-ip-address)
 
 ## Report Descriptions
-Please note that these reports currently only work with FortiGate logs.
+Please note that these reports currently only work with FortiGate logs and are based off of the FortiGate's web filter functionality.
 
 ### Overview Report
 The Overview report is designed to provide a high-level overview of users' web activity.
@@ -89,14 +93,55 @@ This report is incredibly simple. It lists _**all**_ the user's web activity dur
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/e1ac42fb-7bf0-444f-8bf2-c41cab35886b)
 
 ## Usage
+### FortiGate Prerequisites
+The reports are desgined to be as plug-and-play as possible and will work out-of-the-box. However, depending on your FortiGate's configuration, the following may not be present in the reports.
+1. Usernames (falls back to IP addresses).
+2. Search phrases entered into search engines.
+
+#### Enabling Usernames
+To have usernames present in the reports, the FortiGate must be aware of what users are on the network via some form of authentication. For local users using establishment owned equipment, this is usually done via [Fortinet SSO](https://docs.fortinet.com/document/fortigate/7.2.6/administration-guide/450337/fsso) or [Radius SSO](https://docs.fortinet.com/document/fortigate/7.2.6/administration-guide/513092/configuring-radius-sso-authentication), as these are transparent to the users.
+
+Please note that there are multiple ways of implementing Fortinet SSO and that you should contact your Fortinet account team to help you understand which one is the best suited to your environment.
+
+For BYOD devices, I would also recommend contacting your Fortinet account team if you're unsure how to onboard them. This is largely reliant on your environment so there is no, "one-solution-fits-all."
+
+#### Enabling Search Phrases
+Search phrase logging is the easier of the two to implement. It simply requires a deep packet inspection profile and a web filter profile running the proxy feature set with `Log all search keywords` enabled on the firewall policy that the students' traffic is passing through. This will log all search phrases entered into Google, Yahoo, Bing and Yandex.
+
+Note that this also requires the firewall policy to be running in proxy-based inspection mode.
+
+##### Example Firewall Policy
+###### Policy Table View
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/f0e536b5-0118-4d17-b64c-0b97b5d11e81)
+
+###### Policy Settings
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/dd8904e8-4ae7-450e-94ae-c7ec878b30b6)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/c84aab29-d0fb-4601-ae82-b6c54074cb2e)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/7a99ab49-dd51-4509-8383-56ef6bb7beae)
+
+###### Web Filter Profile Settings
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/6a46de0f-d0ef-4e0b-8919-cea415f1bd42)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/5dab41e3-c078-4820-b9f5-6c610f382225)
+
+##### Search Phrase Logging - Adding Additional Search Engines
+As noted above, FortiGate's web filter can only log search phrases entered into Google, Bing, Yahoo and Yandex by default. However, it's possible to expand this list via the CLI.
+
+To see what search engines are currently logging search phrases, open a CLI interface and enter the command: `show webfilter search-engine`. All the search engines displayed with the `query` field set are capable of logging search phrases from their corresponding web apps.
+
+Adding a search engine is then a simple case of entering `config webfilter search-engine`, `edit`ing the search engine you want to add and filling out the regex for the necessary fields. As an example, I added DuckDuckGo as a search engine.
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/44c4884c-8fab-4740-8ea6-e5a4afedce2d)
+
+It can be a tad tricky to get certain characters (read, "question marks") into these configs. The best way I found to do this without having to reboot the box was to create a one-time automation stitch with a CLI script as the action.
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/8ce4a69b-fc23-4519-80c8-d3a09c04af0c)
+
 ### Importing the Reports
-To get started with using these reports, you will need to have a FortiAnalyzer running either 7.4.0 or later, excluding 7.4.1 (there is a bug within 7.4.1 that prevents custom datasets from being exported/edited). 7.4.0+ has a neutrino style GUI so be sure to re-familiarise yourself with the system if you're upgrading from 7.2.x or below.
+To get started with using these reports, you will need to have a FortiAnalyzer running either 7.4.0 or later, excluding 7.4.1 (there is a bug within 7.4.1 that prevents custom datasets from being imported/edited). 7.4.0+ has a neutrino style GUI so be sure to re-familiarise yourself with the system if you're upgrading from 7.2.x or below.
 
 Importing the reports is as simple as cloning this repo, or downloading the .dat files within the Importable Reports directory, navigating to `Reports > Report Definitions > More > Import` and selecting the .dat files to upload.
 
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/68d2ca78-b40e-4c94-b5ef-4c30650dddb4)
 
-To keep things clean, I recommend creating a reports folder for all default reports and moving all the default **_black_** folders/reports into it: green folders cannot be moved (not present in 7.4.0). Once done, create another folder for KCSIE reports and move these reports into it (see above screenshot to how this tidies things up).
+To keep things clean, I recommend creating a reports folder for all default reports and moving all the default **_black_** folders/reports into it: green folders cannot be moved (not present in some versions). Once done, create another folder for KCSIE reports and move these reports into it (see above screenshot to how this tidies things up).
 
 ### Customising the Cover Page
 The cover page configuration for each report can be found within their respective advanced settings. These can be accessed by editing the report, navigating to `Settings` at the top and expanding the Advanced Settings tab at the bottom of the page. The cover page settings can then be found by clicking the `Edit Cover Page` button.
