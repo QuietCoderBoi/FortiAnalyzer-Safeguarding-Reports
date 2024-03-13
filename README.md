@@ -1,4 +1,4 @@
-_**Disclaimer: These reports are not supported by Fortinet and are maintained in my spare time. I do my best to keep them up-to-date but changes may be slow.**_
+_**Disclaimer: These reports are not supported by Fortinet.**_
 
 ---
 
