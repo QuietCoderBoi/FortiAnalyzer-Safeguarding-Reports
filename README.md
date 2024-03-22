@@ -1,4 +1,4 @@
-_**Disclaimer: These reports are not supported by Fortinet and are maintained in my spare time. I do my best to keep them up-to-date but changes may be slow.**_
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/6ffa9ae8-a88c-44a3-ac74-5fa5ce867851)_**Disclaimer: These reports are not supported by Fortinet and are maintained in my spare time. I do my best to keep them up-to-date but changes may be slow.**_
 
 ---
 
@@ -15,7 +15,7 @@ A PDF sample of each report can be found in the Sample Reports folder.
 ## Table of Contents
 - [Report Descriptions](#report-descriptions)
   - [Overview Report](#overview-report)
-  - [User Drilldown Report](#user-drilldown-report)
+  - [User-Specfifc Monitored Activity Drilldown Report](#user-specfifc-monitored-activity-drilldown-report)
   - [User Full Browsing and Search History Report](#user-full-browsing-and-search-history-report)
 - [Usage](#usage)
   - [FortiGate Prerequisites](#fortigate-prerequisites)
@@ -36,32 +36,32 @@ Please note that these reports currently only work with FortiGate logs and are b
 ### Overview Report
 The Overview report is designed to provide a high-level overview of users' web activity.
 
-It starts by showing the ratios of web filter violations based on the “C's” of online safety, as set out by the UK Safer Internet Centre (UKSIC), which I have dubbed "KCSIE Categories." These violations are not necessarily blocked websites. They are any activity that is logged against a web filter category (i.e. any category whose action is not set to "Allow") that is included in one of the KCSIE categories (details of which web filter categories are assigned to which KCSIE categories can be found in the Dataset Source directory).
+It starts by showing the ratios of web filter violations based on the Areas of Risk of online safety, as set out by the UK Safer Internet Centre (UKSIC). These violations are not necessarily blocked websites. They are any activity that is logged against a web filter category (i.e. any category whose action is not set to "Allow") that is included in one of the Areas of Risk (details of which web filter categories are assigned to which Area of Risk can be found in the Dataset Source directory).
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/6fe9513b-498e-4ff7-b395-3d09016b2229)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/55f14d32-9e79-4e39-ba42-ea19d2e6d66d)
 
-To the right of this, the top 10 web filter categories and top 10 websites that have been blocked/visited are grouped by KCSIE category and displayed to help access web browsing trends.
+To the right of this, the top 10 web filter categories and top 10 websites that have been blocked/visited are grouped by Area of Risk and displayed to help access web browsing trends.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/d0bc77f4-8521-488a-a418-dbf3bd979d2b)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/07c5cedd-85ff-41d6-b533-4cea2060e3fc)
 
-To supplement this information, lists of the top 100 users that violate the KCSIE categories are provided.
+To supplement this information, lists of the top 100 users that have viewed monitored content or attempted to view blocked content, in relation to the KCSIE regulations, are provided.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/378b6981-5bc8-4da8-b904-1332d0d540ad)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/7fcf08ce-b045-44b1-9998-1134d99b0b22)
 
 The top 10 users of each of these lists then have their top 10 websites listed for review.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/28b41270-53a4-43a7-bdaf-d28b9c01e960)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/46ca0e6c-24f5-484a-8e13-c6bd89ca4527)
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/48ba8b8f-8fc1-4648-a7ee-dd78640ef178)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/fd49f58b-45e2-4e29-90c3-f10f29f68a82)
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/3a4c4852-4185-4994-8acb-79b8d9d8872d)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/78ca4306-67bd-424e-a9fb-9bb8f93b5c2b)
 
 This should provide a basis for knowing whether any repeat offenders need to be investigated further.
 
 **Please note that if FortiGate does not know the username of a user, it will fall back to using source IP addresses.**
 
-### User Drilldown Report
-The User Drilldown report gives a detailed view into the activities of a user within a specific time period, split out into an overview, KCSIE categories and web filter categories. It is designed to be exported in PDF format to make use of the interactive contents table and document outline menu, that most PDF readers provide.
+### User-Specfifc Monitored Activity Drilldown Report
+The User-Specfifc Monitored Activity Drilldown report gives a detailed view into the activities of a user within a specific time period, split out into an overview, Areas of Risk and web filter categories. It is designed to be exported in PDF format to make use of the interactive contents table and document outline menu, that most PDF readers provide.
 
 The report begins by listing out the details of the user: their username (if known), all source IPs and all hostnames/MAC addresses that they used during the time period the report is run over.
 
@@ -79,20 +79,20 @@ The format of having a summary and details under a section title is prominent in
 
 After blocked applications have been reviewed, the web filter violations are displayed, starting with an overview page similar to that of the overview report.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/b36366e2-fdcb-4cc5-89c0-25220236c079)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/d5ac4008-255e-45e7-95d7-d79e89183809)
 
-The primary difference between this page and the overview report is that this page is not limited to top 10s. All web filter categories that have been blocked/visited within the KCSIE categories are displayed in the pie charts. This allows for categories of interest to be noted and navigated to in the subsequent sections: the KCSIE category drilldowns.
+The primary difference between this page and the overview report is that this page is not limited to top 10s. All web filter categories that have been blocked/visited within the Areas of Risk are displayed in the pie charts. This allows for categories of interest to be noted and navigated to in the subsequent sections: the Areas of Risk drilldowns.
 
-The KCSIE category drilldowns list out all the web filter categories within them and provide summary and details tables for each (as noted in the comment on format earlier).
+The Areas of Risk drilldowns list out all the web filter categories within them and provide summary and details tables for each (as noted in the comment on format earlier).
 
 Finally, at the bottom of the report, there is the Full Search Term History. This, very simply, provides a list of all the keywords logged by FortiGate within the time period the report is run over and lists them in chronological order (i.e. by when they were searched).
 
-### User Full Browsing and Search History Report
-During the creation of the User Drilldown report, I noticed that it was very hard to correlate events happening between different web filter categories and/or keyword search times. Since context is one of the most important aspects when determining whether a potential incident needs actioning, I decided to create a supplement report: the User Full Browsing & Search History report.
+### User-Specific Context Report
+During the creation of the User-Specfifc Monitored Activity Drilldown report, I noticed that it was very hard to correlate events happening between different web filter categories and/or keyword search times. Since context is one of the most important aspects when determining whether a potential incident needs actioning, I decided to create a supplement report: the User-Specific Context report.
 
-This report is incredibly simple. It lists _**all**_ the user's web activity during the time period the report is run over in chronological order. All keyword searches are included and any activity that violates one of the KCSIE categories is denoted by an entry in the KCSIE Category column.
+This report is incredibly simple. It lists _**all**_ the user's web activity during the time period the report is run over in chronological order. All keyword searches are included and any activity to one of the Areas of Risk is denoted by an entry in the Area of Risk column.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/e1ac42fb-7bf0-444f-8bf2-c41cab35886b)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/737b3b1e-6e03-414c-88ae-f338e7c33a72)
 
 ## Usage
 ### FortiGate Prerequisites
