@@ -1,4 +1,4 @@
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/6ffa9ae8-a88c-44a3-ac74-5fa5ce867851)_**Disclaimer: These reports are not supported by Fortinet and are maintained in my spare time. I do my best to keep them up-to-date but changes may be slow.**_
+_**Disclaimer: These reports are not supported by Fortinet and are maintained in my spare time. I do my best to keep them up-to-date but changes may be slow.**_
 
 ---
 
@@ -16,7 +16,7 @@ A PDF sample of each report can be found in the Sample Reports folder.
 - [Report Descriptions](#report-descriptions)
   - [Overview Report](#overview-report)
   - [User-Specfifc Monitored Activity Drilldown Report](#user-specfifc-monitored-activity-drilldown-report)
-  - [User Full Browsing and Search History Report](#user-full-browsing-and-search-history-report)
+  - [User-Specific Context Report](#user-specific-context-report)
 - [Usage](#usage)
   - [FortiGate Prerequisites](#fortigate-prerequisites)
     - [Enabling Usernames](#enabling-usernames)
@@ -129,6 +129,9 @@ Note that this also requires the firewall policy to be running in proxy-based in
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/5dab41e3-c078-4820-b9f5-6c610f382225)
 
 ##### Search Phrase Logging - Adding Additional Search Engines
+
+_\[NOTE\]: For anyone running multiple VDOMs, the following changes must be performed within the relevant traffic VDOMs. Performing this configuration within the global settings does not seem to have any effect (tested with FOS 7.2.7)._
+
 As noted above, FortiGate's web filter can only log search phrases entered into Google, Bing, Yahoo and Yandex by default. However, it's possible to expand this list via the CLI.
 
 To see what search engines are currently logging search phrases, open a CLI interface and enter the command: `show webfilter search-engine`. All the search engines displayed with the query field set are capable of logging search phrases from their corresponding web apps.
@@ -150,16 +153,20 @@ Importing the reports is as simple as cloning this repo or downloading the .dat 
 
 ![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/68d2ca78-b40e-4c94-b5ef-4c30650dddb4)
 
+Once imported, please ensure that the Overview report and the User-Specific Context Report are set to landscape mode. This can be done by editing the relevant reports, navigating to their `Settings` at the top, expanding the `Advanced Settings` tab at the bottom of the page, and selecting `Landscape`.
+
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/4843e605-c455-4d05-a841-5ec889e60e97)
+
 To keep things clean, I recommend creating a reports folder for all default reports and moving all the default _black_ folders/reports into it, as green folders cannot be moved (not present in some versions). Once done, create another folder for KCSIE reports and move these reports into it (see above screenshot for how this tidies things up).
 
 ### Customising the Cover Page
 The cover page configuration for each report can be found within their respective advanced settings. These can be accessed by editing the report, navigating to `Settings` at the top and expanding the `Advanced Settings` tab at the bottom of the page. The cover page settings can then be found by clicking the `Edit Cover Page` button.
 
-![Untitled](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/c2496d03-90ef-45d9-9b13-0ebad32fbdd0)
+![Screenshot 2024-03-25 120055](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/9c579664-0f17-4efe-9bbe-196029573759)
 
 This will provide a menu where the background image, title, title colour, footer text, etc. can be customised.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/4a5e5713-04c7-4c71-a491-627cad828763)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/f66d1702-1b70-4a17-9c94-017fb8cdb3e3)
 
 In the case of the Overview report, the preview may look a tad squashed. This is normal for landscape reports, as the preview can only render portrait cover pages.
 
@@ -192,8 +199,8 @@ To do this, simply edit the Overview report, navigate to its `Settings` at the t
 If more than one group needs to be matched, simply change the `Log messages that match` to `Any of the Following Conditions` and add more `group` filters.
 
 ### User Reports - Setting the User or IP Address
-To set the username or IP address that you want a user report to run against, edit the report, navigate to `Settings` at the top and fill in the `User or IP` box.
+To set the username or IP address that you want a user report to run against, edit the report, navigate to `Settings` at the top, open the `Filters` drop down and add a `User (user)` filter.
 
-![Untitled](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/d3ed148d-8bdb-4848-9f99-ec76ab992d26)
+![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/66380372-3492-4c8d-b83d-4c212d07c885)
 
-**_This username is case-sensitive and must be entered exactly as it appears in the Overview report or in the logs._**
+**_This username is case-sensitive and must be entered exactly as it appears in the in the logs._**
