@@ -108,25 +108,17 @@ Please note that there are multiple ways of implementing Fortinet SSO and that y
 For BYOD devices, I would also recommend contacting your Fortinet account team if you're unsure how to onboard them. This is largely reliant on your environment, so there is no "one-solution-fits-all."
 
 #### Enabling Search Phrases
-Search phrase logging is the easier of the two to implement. It simply requires a deep packet inspection profile and a web filter profile running the proxy feature set with Log all search keywords enabled on the firewall policy that the students' traffic is passing through. This will log all search phrases entered into Google, Yahoo, Bing and Yandex.
+Search phrase logging can be implemented via either application control or web filtering.
 
-Note that this also requires the firewall policy to be running in proxy-based inspection mode.
+To implement search phrase logging via application control, simply create an application control profile and the General Interest category to `Monitor`.
 
-##### Example Firewall Policy
-###### Policy Table View
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/f0e536b5-0118-4d17-b64c-0b97b5d11e81)
+Alternatively, if you want to reduce the number of logs generated, create an Application and Filter Override that sets the action to all application signatures containing `Search.Phrase` in their name to `Monitor`.
 
-###### Policy Settings
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/dd8904e8-4ae7-450e-94ae-c7ec878b30b6)
+Both of these will log all search phrases in Google, Bing and DuckDuckGo queries.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/c84aab29-d0fb-4601-ae82-b6c54074cb2e)
+To implement search phrase logging via web filtering, create a web filter profile, set it to use the `Proxy` feature set and enable `Log all search keywords`.
 
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/7a99ab49-dd51-4509-8383-56ef6bb7beae)
-
-###### Web Filter Profile Settings
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/6a46de0f-d0ef-4e0b-8919-cea415f1bd42)
-
-![image](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/assets/67976682/5dab41e3-c078-4820-b9f5-6c610f382225)
+This will, by default, log all search phrases in Google, Bing, Yahoo and Yandex queries.
 
 ##### Search Phrase Logging - Adding Additional Search Engines
 

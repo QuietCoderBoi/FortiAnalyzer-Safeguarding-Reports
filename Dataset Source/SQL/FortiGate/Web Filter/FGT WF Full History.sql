@@ -23,7 +23,6 @@ FROM
       		`keyword`,
 			COALESCE(
 				nullifna(SUBSTRING(lower(`user`), '^[A-Za-z0-9\\_\.-]{0,}')),
-				nullifna(SUBSTRING(lower(`unauthuser`), '^[A-Za-z0-9\\_\.-]{0,}')),
 				ipstr(srcip)
 			) AS user_src
 		FROM
