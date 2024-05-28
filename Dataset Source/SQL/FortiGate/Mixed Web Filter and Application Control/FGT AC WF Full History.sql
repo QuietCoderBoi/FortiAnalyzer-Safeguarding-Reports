@@ -18,7 +18,7 @@ FROM
 					ipstr(srcip)
 				) AS user_src,
 				`hostname` AS event_source_raw,
-				`keyword` AS search_query,
+				NULL AS search_query,
 				`catdesc` AS web_catdesc,
 				(CASE 
 					WHEN `catdesc` ~ 'Abortion|Alcohol|Alternative Beliefs|Discrimination|Domain Parking|Drug Abuse|Dynamic Content|Explicit Violence|Extremist Groups|Illegal and Unethical|Lingerie and Swimsuit|Malicious Websites|Marijuana|Nudity and Risque|Other Adult Materials|Peer-to-peer File Sharing|Spam URLs|Sports Hunting and War Games|Terrorism|Tobacco|URL Shortening|Weapons (Sales)' THEN 'Content'
@@ -73,6 +73,8 @@ FROM
 	) t_combined
 WHERE
 	user_src IS NOT NULL
+AND
+	web_catdesc IS NOT NULL OR search_query IS NOT NULL
 GROUP BY
 	user_src,
 	event_source,
