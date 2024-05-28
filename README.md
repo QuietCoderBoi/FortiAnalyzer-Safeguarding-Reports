@@ -12,6 +12,12 @@ To combat this, I have created three reports for the FortiAnalyzer that I believ
 
 A PDF sample of each report can be found in the Sample Reports folder.
 
+## Important Announcement
+
+As of FortiOS 7.4.4, all FortiGate models with 2GB or less of RAM are [no longer able to utilise proxy features](https://docs.fortinet.com/document/fortigate/7.4.0/new-features/519079/proxy-related-features-no-longer-supported-on-fortigate-2gb-ram-models-7-4-4).
+
+No functionality has been lost from this change (safe search enforcement has been added to flow-mode web filter profiles) but all search phrase logging will have to be done via the application control method (detailed below) for the affected models.
+
 ## Table of Contents
 - [Report Descriptions](#report-descriptions)
   - [Overview Report](#overview-report)
@@ -108,17 +114,17 @@ Please note that there are multiple ways of implementing Fortinet SSO and that y
 For BYOD devices, I would also recommend contacting your Fortinet account team if you're unsure how to onboard them. This is largely reliant on your environment, so there is no "one-solution-fits-all."
 
 #### Enabling Search Phrases
-Search phrase logging can be implemented via either application control or web filtering.
+Search phrase logging is the easier of the two to implement and can be done via an application control profile or web filter profile, in tandem with a deep packet inspection profile, that is applied to the relevant firewall policies.
 
-To implement search phrase logging via application control, simply create an application control profile and the General Interest category to `Monitor`.
+Implementing search phrase logging via an application control profile allows for the capture of search phrases entered into Google, Bing and DuckDuckGo with minimal configuration. It only requires that the General Interest section within the profile is set to `Monitor`.
 
-Alternatively, if you want to reduce the number of logs generated, create an Application and Filter Override that sets the action to all application signatures containing `Search.Phrase` in their name to `Monitor`.
+If this generates too many logs, you can narrow the scope of this monitor to search phrases only by setting the General Interest category to `Allow` and creating an Application and Filter Override with all application signatures containing `Search.Phrase` to `Monitor`.
 
-Both of these will log all search phrases in Google, Bing and DuckDuckGo queries.
+Alternatively, implementing search phrase logging via a web filter profile allows for the capture of search phrases entered into Google, Bing, Yahoo and Yandex, by default.
 
-To implement search phrase logging via web filtering, create a web filter profile, set it to use the `Proxy` feature set and enable `Log all search keywords`.
+This method requires a web filter profile to be running the *proxy feature set* with `Log all search keywords` enabled.
 
-This will, by default, log all search phrases in Google, Bing, Yahoo and Yandex queries.
+Note that this means that the relevant firewall policies will also have to be running in proxy mode.
 
 ##### Search Phrase Logging - Adding Additional Search Engines
 
