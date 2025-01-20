@@ -1,0 +1,46 @@
+Category						|	UKSIC List?	 |	Displayed in Overview Report?
+--------------------------------|----------------|--------------------------------
+Abortion						|	No			 |	Yes
+Alcohol							|	No			 |	No
+Child Sexual Abuse				|	Yes			 |	Priority
+Discrimination					|	Yes			 |	Yes
+Drug Abuse						|	Yes			 |	Yes
+Explicit Violence				|	Yes			 |	Yes
+Extremist Groups				|	Yes			 |	Priority
+Gambling						|	No			 |	No
+Illegal and Unethical			|	Yes			 |	Yes
+Malicious Websites				|	Yes			 |	Yes
+Marijuana						|	Yes			 |	Yes
+Other Adult Materials			|	No			 |	No
+Pornorgraphy					|	No			 |	No
+Sports Hunting and War Games	|	No			 |	No
+Terrorism						|	Yes			 |	Priority
+Tobacco							|	No			 |	No
+Weapons (Sales)					|	No			 |	Priority
+
+
+
+
+Overview Section			|	Displayed Categories
+============================|==========================
+Internet Watch Foundation	|	Child Sexual Abuse
+----------------------------|--------------------------
+Prevent Duty				|	Extremist Groups
+							|	Terrorism
+----------------------------|--------------------------
+Weapons						|	Weapons (Sales)
+----------------------------|--------------------------
+General Concern				|	Abortion
+							|	Discrimination
+							|	Drug Abuse
+							|	Explicit Violence
+							|	Illegal and Unethical
+							|	Malicious Websites
+							|	Marijuana
+----------------------------|--------------------------
+Informational (Not Shown)	|	Alocohol
+							|	Gambling
+							|	Other Adult Materials
+							|	Pornorgraphy
+							|	Sports Hunting and War Games
+							|	Tobacco
