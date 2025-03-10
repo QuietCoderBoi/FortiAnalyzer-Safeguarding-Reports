@@ -13,10 +13,14 @@ To combat this, I have created three reports for the FortiAnalyzer that I believ
 A PDF sample of each report can be found in the Sample Reports folder.
 
 ## Important Announcement
-
 As of FortiOS 7.4.4, all FortiGate models with 2GB or less of RAM are [no longer able to utilise proxy features](https://docs.fortinet.com/document/fortigate/7.4.0/new-features/519079/proxy-related-features-no-longer-supported-on-fortigate-2gb-ram-models-7-4-4).
 
 No functionality has been lost from this change (safe search enforcement has been added to flow-mode web filter profiles) but all search phrase logging will have to be done via the application control method (detailed below) for the affected models.
+
+## Version 4 Beta
+It has taken a long time but I am happy to annouce that the [version 4 beta](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/tree/overview-overhaul) is now available ahead of release.
+
+There are still a number of changes to be made before they are ready; all of which can be found [here](https://github.com/QuietCoderBoi/FortiAnalyzer-Safeguarding-Reports/issues/15). Due to this, there are no sample reports or report descriptions available for the beta reports at this time.
 
 ## Table of Contents
 - [Report Descriptions](#report-descriptions)
