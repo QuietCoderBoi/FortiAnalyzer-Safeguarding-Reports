@@ -2,7 +2,6 @@ SELECT
 	user_src,
 	`catdesc`,
 	`hostname`,
-	SUBSTRING(`hostname`, '(?:[-a-zA-Z0-9@:%_\+~.#=]{2,100}\.)?([-a-zA-Z0-9@:%_\+~#=]*\.[a-z]{2,6})(?:[-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)') AS SLD,
 	SafeCat,
 	`keyword`,
 	cal_time,
@@ -50,7 +49,6 @@ GROUP BY
 	user_src,
 	`catdesc`,
 	`hostname`,
-	SLD,
 	SafeCat,
 	`keyword`,
 	cal_time
