@@ -11,7 +11,7 @@ FROM
 			SELECT
 				$calendar_time AS cal_time,
 				COALESCE(
-					nullifna(regexpExtract(lower(`user`), '^[A-Za-z0-9\\_\.-]{0,}', 0)),
+					nullifna(extract(lower(`user`), '^[A-Za-z0-9\\_\.-]{0,}')),
 					ipstr(srcip)
 				) AS user_src,
 				`hostname` AS event_source_raw,
@@ -46,7 +46,7 @@ FROM
 			SELECT
 				$calendar_time AS cal_time,
 				COALESCE(
-					nullifna(regexpExtract(lower(`user`), '^[A-Za-z0-9\\_\.-]{0,}', 0)),
+					nullifna(extract(lower(`user`), '^[A-Za-z0-9\\_\.-]{0,}')),
 					ipstr(srcip)
 				) AS user_src,
 				`app`,
@@ -58,7 +58,7 @@ FROM
 			WHERE
 				$filter
 			AND (
-				`app` LIKE '%Search.Phrase' AND `filename` IS NOT NULL
+				match(`app`, 'Search.Phrase') AND `filename` IS NOT NULL
 			)
 			GROUP BY
 				cal_time,

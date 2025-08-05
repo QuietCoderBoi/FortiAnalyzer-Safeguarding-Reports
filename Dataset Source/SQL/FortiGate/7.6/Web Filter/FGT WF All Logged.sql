@@ -22,7 +22,7 @@ FROM
 				ELSE NULL
 			END) AS SafeCat,
 			COALESCE(
-				nullifna(regexpExtract(lower(`user`), '^[A-Za-z0-9\\_\.-]{0,}', 0)),
+				nullifna(extract(lower(`user`), '^[A-Za-z0-9\\_\.-]{0,}')),
 				ipstr(srcip)
 			) AS user_src
 		FROM
